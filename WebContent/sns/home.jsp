@@ -3,8 +3,13 @@
     <%@ page import="com.db.*" %>
     
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+
 <% int userid = Integer.parseInt(request.getParameter("user")); 
+session.setAttribute("userid",userid);
+
 dbConnection db = new dbConnection();
+session.setAttribute("db",db);
 UserInfo userinfo= db.getInformation(userid); %>
 <html>
 <head>
@@ -39,9 +44,14 @@ UserInfo userinfo= db.getInformation(userid); %>
 $(document).ready(function(){
 	
 	$("#TEXT_ID").hide();
-	$("#post").click(function (){
-		
-	});
+	$("#viewpost").load("viewpost.jsp");
+	
+	$('#waterfall-exp').keyup(function(e){
+    if(e.keyCode == 13)
+    { 
+    
+    	window.location.replace("search.jsp?search="+$('#waterfall-exp').val());
+    }});
 
 });
 
@@ -84,7 +94,7 @@ var storageRef = firebase.storage().ref(""+Math.random());
 ); }
 else
 	{
-	window.location.replace("home.jsp?desc="+elem+"&url="+downloadURL);
+	window.location.replace("post.jsp?desc="+elem+"&url="+downloadURL);
 	}
 
 	}
@@ -112,7 +122,7 @@ else
                 <i class="material-icons">search</i>
               </label>
               <div class="mdl-textfield__expandable-holder">
-                <input style="background-color:white;color:black" class="mdl-textfield__input" type="text" name="sample" id="waterfall-exp">
+                <input style="border-radius:20px;background-color:white;color:black" class="mdl-textfield__input" type="text" name="sample" id="waterfall-exp">
               </div>
             </div>
               <!-- Right aligned menu below button -->
@@ -155,14 +165,14 @@ else
         
                 
                 <!-- MDL Spinner Component -->
-<div class="mdl-spinner mdl-js-spinner is-active" style="position:fixed;top:50%;left:50%;" ></div>
+
 
            <div id= "main" style="margin-left:25%;"class = "wide-card mdl-card mdl-shadow--2dp">
                <div class = "mdl-card__title">
                      <h2 class = "mdl-card__title-text">Write to share</h2>
                   </div>
                  
-                   <textarea  id="description" name ="description" rows="4" cols="50" >
+                   <textarea  style="border-radius:20px" id="description" name ="description" rows="4" cols="50" >
 
 </textarea>
                   
@@ -183,7 +193,8 @@ else
                   </div>
                   </div>
                   </div>
-                  
+                  <div style="margin-left:25%" id="viewpost">
+                  </div>
                   
 
              

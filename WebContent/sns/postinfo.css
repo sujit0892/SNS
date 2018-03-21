@@ -1,32 +1,24 @@
 @charset "ISO-8859-1";
-textarea {
-    height:150px;
-    padding: 12px 20px;
-    box-sizing: border-box;
-    border: 0.5px solid #ccc;
-     resize: none;
-}
+
         .wide-card.mdl-card {
-            width: 512px;
+           
             margin-top:10px
          }
       
          .square-card.mdl-card {
-            width: 256px;
-            height: 256px;
+           
          }
 
        
 
          .event-card.mdl-card {
-            width: 256px;
-            height: 256px;
+           
             background: #3E4EB8;
          }
       
          .event-card.mdl-card__title {
             color: #fff;
-            height: 176px;
+            
          }
 
          .event-card > .mdl-card__actions {
@@ -99,4 +91,43 @@ width: 50px;
 height: 50px;
 border-radius: 50px;
 margin-left: 50px"
+}
+.anchor
+{    color:#9E9E9E;
+    display:inline-block;
+	font-size:"5px";
+     height:100%;
+    width:100%;
+}
+.link_class:hover
+{
+     color:#9E9E9E;
+     background-color:#EEEEEE; 
+     text-decoration:none; 
+     cursor:pointer;  
+}
+.button_class {
+   
+    
+    color:#424242;
+  
+    -webkit-border-radius:3px;
+    -moz-border-radius:3px;
+    border-radius:3px;
+}
+
+.link_class {
+color:#424242;
+padding:5px;
+    display:inline-block;
+width: 100%;
+    
+}
+.black
+{
+	color:black;
+}
+.blue
+{
+	color:#2196F3;
 }

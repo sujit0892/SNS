@@ -1,0 +1,9 @@
+@charset "ISO-8859-1";
+
+.demo-card-wide.mdl-card {
+  width: 80%;
+  
+}
+link{
+	cursor: pointer;
+}
