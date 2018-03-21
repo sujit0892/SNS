@@ -106,7 +106,7 @@ else
 
 <script src = "home.js"></script>
 </head>
-<body>
+<body >
 
     <div class="demo-layout-waterfall mdl-layout mdl-js-layout">
         <header class="mdl-layout__header mdl-layout__header--waterfall">
@@ -193,7 +193,7 @@ else
                   </div>
                   </div>
                   </div>
-                  <div style="margin-left:25%" id="viewpost">
+                  <div class='blue'style="margin-left:25%" id="viewpost">
                   </div>
                   
 

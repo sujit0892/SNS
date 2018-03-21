@@ -4,7 +4,7 @@
 <%
 int userid=Integer.parseInt((session.getAttribute("userid")).toString());
 int pid = Integer.parseInt(request.getParameter("post"));
-String comment= request.getParameter("post");
+String comment= request.getParameter("comment");
 dbConnection db = new dbConnection();
 UserInfo userinfo= db.getInformation(userid);
 db.comment(pid, userid,comment);

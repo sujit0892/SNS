@@ -23,6 +23,18 @@ dbConnection db = new dbConnection();
 UserInfo userinfo= db.getInformation(userid);%>
 <script>
 $(document).ready(function(){
+	<%if(db.checkLike(pid, userid))
+	{
+		out.print("$('#likeicon').addClass('blue');");
+	}
+	else
+	{
+		out.print("$('#likeicon').addClass('black');");
+	}
+	
+	%>
+	
+	
 	$("#comments").show();
 	$('#likes').hide();
 	$("#like").click(function(){
@@ -33,27 +45,29 @@ $(document).ready(function(){
 		$("#likes").hide();
 		$("#comments").show();
 	});
-	$('#likebutton').click(function() {
-	    $('#likeicon').toggleClass('black blue');
-	    $.post("like.jsp",
-	    	    {
-	    	        post:<%= pid%>
+	$('#likebutton').click(function() {$('#likeicon').toggleClass('black blue');$.post("like.jsp",{
+	    	     post:<%= pid%>
 	    	    },
 	    	    function(data, status){
 	    	        
 	    	    });
 	});
 	
-	$('#likebutton').click(function() {
-	    $('#likeicon').toggleClass('black blue');
-	    $.post("like.jsp",
+$('#doComment').click(function() {
+	    alert();
+	    var c=$('#commentbox').val();
+	    $.post("comment.jsp",
 	    	    {
-	    	        post:<%= pid%>
+	    	        post:<%= pid%>,
+	                comment: c
 	    	    },
 	    	    function(data, status){
-	    	        
+	    	        alert();
 	    	    });
+	   
 	});
+	
+	
 	
 	
 });
@@ -136,7 +150,7 @@ $(document).ready(function(){
 			"background-image: url('"+info.getPicurl()+"');1"+
 			"}"+
 "</style>");
-		out.print("<div style='padding-top:5px'><div  class='demo-card-wide mdl-card mdl-shadow--2dp'>"+
+		out.print("<div style='margin-left:25%;padding-top:5px'><div  class='demo-card-wide mdl-card mdl-shadow--2dp'>"+
 				""+
 				"<div class='mdl-card__supporting-text'>"+
 				"	<img id='pic"+post.getUserid()+"' class='demo' style='margin-top: 5px'><span> "+info.getName()+
@@ -144,12 +158,16 @@ $(document).ready(function(){
 				"</div>"+
 				"<span style='margin-left: 5px'>"+ post.getDesc() +"<span>"+
 				"		<div class='mdl-card__actions mdl-card--border'>"+
-				"			<button id='likeicon'"+
+				"			<button id='likebutton'"+
 				"				class='mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect'>"+
-				"				<i  class='material-icons'>thumb_up</i>"+
-"			</button> <button"+
+				"				<i  id ='likeicon' class='material-icons'>thumb_up</i>"+
+"			</button> <button id='comment'"+
 "								class='mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect'>"+
-"								<i  class='material-icons'>chat_bubble_outline</i>"+
+"								<i  class='material-icons black'>chat_bubble_outline</i>"+
+"							</button>"+
+"<button id='like'"+
+"								class='mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect'>"+
+"								view likes"+
 "							</button>"+
 "						</div>"+
 "			</div></div>");
@@ -175,7 +193,7 @@ $(document).ready(function(){
 				"		<div class='mdl-card__actions mdl-card--border'>"+
 				"			<button id='likebutton'"+
 				"				class='mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect'>"+
-				"				<i id='likeicon' class='material-icons black'>thumb_up</i>"+
+				"				<i id='likeicon' class='material-icons '>thumb_up</i>"+
 "			</button> <button id='comment'"+
 "								class='mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect'>"+
 "								<i class='material-icons black'>chat_bubble_outline</i>"+

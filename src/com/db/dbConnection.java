@@ -433,13 +433,13 @@ public class dbConnection {
 	public void comment(int pid, int userid,String comment)
 	{ PreparedStatement ps;
 	try {
-		ps = con.prepareStatement("Insert into likes values(seqcom.nextval,?,?,null,?)");
+		ps = con.prepareStatement("Insert into comments values(seqcom.nextval,?,?,null,?)");
 	 
 	ps.setInt(1, pid);
 	ps.setInt(2, userid);
 	ps.setString(3, comment);
 	int i=ps.executeUpdate();
-	System.out.println("comment");
+	
 	}
 	catch (SQLException e) {
 		// TODO Auto-generated catch block
@@ -448,6 +448,37 @@ public class dbConnection {
 		
 	
 	}
+	
+	public  boolean checkLike(int pid,int userid)
+	{
+		boolean status =false;
+		PreparedStatement ps;
+		try {
+			ps = con.prepareStatement("Select lid from likes where pid=? and userid=?");
+			
+			ps.setInt(1, pid);
+			ps.setInt(2, userid);
+			rs = ps.executeQuery();
+			
+			if(!rs.next())
+			{ 
+				status= false;
+			   	
+			}
+			else
+			{ 
+				status= true;
+				
+			}
+			
+		}
+		catch(Exception e)
+		{
+			System.out.println(e);
+		}
+		return status;
+	}
+	
 }
 
 
