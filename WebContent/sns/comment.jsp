@@ -8,6 +8,8 @@ String comment= request.getParameter("comment");
 dbConnection db = new dbConnection();
 UserInfo userinfo= db.getInformation(userid);
 db.comment(pid, userid,comment);
+post post=db.getPostinfo(pid);
+db.insetNotify(userid, pid,post.getUserid() ,"commented your photo");
 
 
 %>

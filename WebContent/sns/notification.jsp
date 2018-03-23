@@ -13,6 +13,13 @@
 
 <script>
 $(document).ready(function(){
+	$('#editprofile').click(function(){
+		window.location.replace("editprofile.jsp");
+	});
+	$('#signout').click(function(){
+		window.location.replace("signout.jsp");
+		
+	});
 	
 
 	
@@ -102,8 +109,8 @@ UserInfo userinfo= db.getInformation(userid);%>
       
               <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
               for="demo-menu-lower-right">
-              <li class="mdl-menu__item">Edit Profile</li>
-              <li class="mdl-menu__item">Sign Out</li>
+             <li id="editprofile" class="mdl-menu__item">Edit Profile</li>
+              <li id="signout"class="mdl-menu__item">Sign Out</li>
         
               </ul>
           </div>
@@ -120,12 +127,11 @@ UserInfo userinfo= db.getInformation(userid);%>
                   <div class="android-drawer-separator"></div>   
           
           <nav class="mdl-navigation">
-            <a class="mdl-navigation__link" href=""> <i class="material-icons">home</i> Home</a>
-            <a class="mdl-navigation__link" href=""> <i class="material-icons">public</i> Notification</a>
-            <a class="mdl-navigation__link" href=""> <i class="material-icons">message</i> Message</a>
-            <a class="mdl-navigation__link" href=""> <i class="material-icons">account_circle</i> My Profile</a>
+<a class="mdl-navigation__link" href="home.jsp"> <i class="material-icons">home</i> Home</a>
+            <a class="mdl-navigation__link" href="notification.jsp"> <i class="material-icons">public</i> Notification</a>
+            <a class="mdl-navigation__link" href="msg.jsp"> <i class="material-icons">message</i> Message</a>
+            <a class="mdl-navigation__link" href="myprofile.jsp"> <i class="material-icons">account_circle</i> My Profile</a>
             <div class="android-drawer-separator"></div>
-
            </nav>
 
         </div>
@@ -140,9 +146,25 @@ UserInfo userinfo= db.getInformation(userid);%>
 
 ArrayList<notify> notifys =new ArrayList(db.getNotify(userid));
 for(notify notify:notifys)
-{   UserInfo user = db.getInformation(notify.getUserid());
+{  if(notify.getPid()==0)
+{%>
+<script>
+<%out.print("$(document).ready(function(){$('#n"+notify.getNid()+"').click(function(){window.location.replace('profile.jsp?user="+notify.getUserid()+"')}); });");
+%>
+</script>
+<%}else
+{%>
+	<script>
+	<%out.print("$(document).ready(function(){$('#n"+notify.getNid()+"').click(function(){window.location.replace('postinfo.jsp?post="+notify.getPid()+"')}); });");
+	%>
+	</script>
+<%}
+	
+	
+	db.updateNotify(notify.getNid());
+	UserInfo user = db.getInformation(notify.getUserid());
 	out.print("<style>#pic"+user.getUserid()+"{background-image: url('"+user.getPicurl()+"');}</style>");
-	out.print("<div class='button_class'>"+
+	out.print("<div id='n"+notify.getNid()+"'class='button_class'>"+
 			"<img id='pic"+user.getUserid()+"'class='demo'>&nbsp&nbsp"+
             user.getName()+"&nbsp"+notify.getNoti()+"</div>");
 	

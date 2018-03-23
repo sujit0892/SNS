@@ -5,7 +5,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <% int userid=(int)session.getAttribute("userid");
 dbConnection db = new dbConnection();
-UserInfo userinfo= db.getInformation(userid); %>
+UserInfo userinfo= db.getInformation(userid);
+int rid=Integer.parseInt(request.getParameter("msg"));%>
+
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -49,6 +51,8 @@ $(document).ready(function(){
 	setInterval(function(){
 	$('#msgContain').load("recentmsg.jsp");
 	},2000);
+	
+   <%out.print("$('#load').load('messageContent.jsp?msgid="+rid+"')");%>
 
 });
 

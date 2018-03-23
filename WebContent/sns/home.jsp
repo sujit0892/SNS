@@ -5,11 +5,12 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 
-<% int userid = Integer.parseInt(request.getParameter("user")); 
-session.setAttribute("userid",userid);
+<% int userid = (int)session.getAttribute("userid"); 
 
-dbConnection db = new dbConnection();
-session.setAttribute("db",db);
+
+dbConnection db = (dbConnection)session.getAttribute("db");
+//dbConnection db = new dbConnection();
+
 UserInfo userinfo= db.getInformation(userid); %>
 <html>
 <head>
@@ -42,10 +43,20 @@ UserInfo userinfo= db.getInformation(userid); %>
 </script>
 <script>
 $(document).ready(function(){
-	
+	$('#signout').click(function(){
+		window.location.replace("signout.jsp");
+		
+	});
+	$('#editprofile').click(function(){
+		window.location.replace("editprofile.jsp");
+	});
+			
 	$("#TEXT_ID").hide();
 	$("#viewpost").load("viewpost.jsp");
 	
+	$('#editprofile').click(function(){
+		window.location.replace("editprofile.jsp");
+	});
 	$('#waterfall-exp').keyup(function(e){
     if(e.keyCode == 13)
     { 
@@ -133,8 +144,8 @@ else
       
               <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
               for="demo-menu-lower-right">
-              <li class="mdl-menu__item">Edit Profile</li>
-              <li class="mdl-menu__item">Sign Out</li>
+              <li id="editprofile" class="mdl-menu__item">Edit Profile</li>
+              <li id="signout"class="mdl-menu__item">Sign Out</li>
         
               </ul>
           </div>
@@ -151,10 +162,10 @@ else
                   <div class="android-drawer-separator"></div>   
           
           <nav class="mdl-navigation">
-            <a class="mdl-navigation__link" href=""> <i class="material-icons">home</i> Home</a>
-            <a class="mdl-navigation__link" href=""> <i class="material-icons">public</i> Notification</a>
-            <a class="mdl-navigation__link" href=""> <i class="material-icons">message</i> Message</a>
-            <a class="mdl-navigation__link" href=""> <i class="material-icons">account_circle</i> My Profile</a>
+            <a class="mdl-navigation__link" href="home.jsp"> <i class="material-icons">home</i> Home</a>
+            <a class="mdl-navigation__link" href="notification.jsp"> <i class="material-icons">public</i> Notification</a>
+            <a class="mdl-navigation__link" href="msg.jsp"> <i class="material-icons">message</i> Message</a>
+            <a class="mdl-navigation__link" href="myprofile.jsp"> <i class="material-icons">account_circle</i> My Profile</a>
             <div class="android-drawer-separator"></div>
             
            </nav>

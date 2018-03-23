@@ -38,12 +38,13 @@ public class Message {
 	private String msg;
 	private int status;
 	
-	public Message(int sid,int rid,String msg,int status)
+	public Message(int sid,int rid,String msg,int status,int mid)
 	{
 		this.sid=sid;
 		this.rid=rid;
 		this.msg = msg;
 		this.status = status;
+		this.mid=mid;
 	}
 
 }

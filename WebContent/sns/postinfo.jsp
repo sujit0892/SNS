@@ -33,7 +33,19 @@ $(document).ready(function(){
 	}
 	
 	%>
-	
+	$('#signout').click(function(){
+		window.location.replace("signout.jsp");
+		
+	});
+	$('#editprofile').click(function(){
+		window.location.replace("editprofile.jsp");
+	});
+	$('#waterfall-exp').keyup(function(e){
+    if(e.keyCode == 13)
+    { 
+    
+    	window.location.replace("search.jsp?search="+$('#waterfall-exp').val());
+    }});
 	
 	$("#comments").show();
 	$('#likes').hide();
@@ -106,8 +118,8 @@ $('#doComment').click(function() {
       
               <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
               for="demo-menu-lower-right">
-              <li class="mdl-menu__item">Edit Profile</li>
-              <li class="mdl-menu__item">Sign Out</li>
+             <li id="editprofile" class="mdl-menu__item">Edit Profile</li>
+              <li id="signout"class="mdl-menu__item">Sign Out</li>
         
               </ul>
           </div>
@@ -124,10 +136,10 @@ $('#doComment').click(function() {
                   <div class="android-drawer-separator"></div>   
           
           <nav class="mdl-navigation">
-            <a class="mdl-navigation__link" href=""> <i class="material-icons">home</i> Home</a>
-            <a class="mdl-navigation__link" href=""> <i class="material-icons">public</i> Notification</a>
-            <a class="mdl-navigation__link" href=""> <i class="material-icons">message</i> Message</a>
-            <a class="mdl-navigation__link" href=""> <i class="material-icons">account_circle</i> My Profile</a>
+            <a class="mdl-navigation__link" href="home.jsp"> <i class="material-icons">home</i> Home</a>
+            <a class="mdl-navigation__link" href="notification.jsp"> <i class="material-icons">public</i> Notification</a>
+            <a class="mdl-navigation__link" href="msg.jsp"> <i class="material-icons">message</i> Message</a>
+            <a class="mdl-navigation__link" href="myprofile.jsp"> <i class="material-icons">account_circle</i> My Profile</a>
             <div class="android-drawer-separator"></div>
 
            </nav>

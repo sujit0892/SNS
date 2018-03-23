@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+    
+    <%
+    if(session.getAttribute("userid")!= null){
+    response.sendRedirect("home.jsp");
+    }%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -42,11 +47,11 @@ $(document).ready(function()
     <p id="error" style="color:red"></p>
     <div class="mdl-dialog__content">
      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-    <input class="mdl-textfield__input" type="text" name="email">
+    <input class="mdl-textfield__input" type="text" name="email" required>
     <label class="mdl-textfield__label" for="sample3">Email...</label>
   </div>
   <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-    <input class="mdl-textfield__input" type="password" name="password">
+    <input class="mdl-textfield__input" type="password" name="password" required>
     <label class="mdl-textfield__label" for="sample3">Password...</label>
   </div>
     </div>
@@ -76,19 +81,19 @@ $(document).ready(function()
     <p id="error" style="color:red"></p>
     <div class="mdl-dialog__content">
      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-    <input class="mdl-textfield__input" type="text" name="email">
+    <input class="mdl-textfield__input" type="email" name="email" required>
     <label class="mdl-textfield__label" fog2r="sample3">Email</label>
   </div><br/>
   <div style="margin: 10px;"class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-    <input class="mdl-textfield__input" type="text" name="fname">
+    <input class="mdl-textfield__input" type="text" name="fname" required>
     <label class="mdl-textfield__label" for="sample3">First name</label>
   </div>
   <div style="margin: 10px;" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-    <input class="mdl-textfield__input" type="text" name="sname">
+    <input class="mdl-textfield__input" type="text" name="sname" required>
     <label class="mdl-textfield__label" for="sample3">Surname</label>
   </div>
   <div style="margin: 10px;" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-    <input class="mdl-textfield__input" type="date" name="dob">
+    <input class="mdl-textfield__input" type="date" name="dob" required>
     <label class="mdl-textfield__label" for="sample3"></label>
   </div>
 
@@ -104,11 +109,11 @@ $(document).ready(function()
   </div>
   
   <div style="margin: 10px;" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-    <input class="mdl-textfield__input" type="password" name="password">
+    <input class="mdl-textfield__input" type="password" name="password" required>
     <label class="mdl-textfield__label" for="sample3">Password...</label>
   </div>
    <div style="margin: 10px;" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-    <input class="mdl-textfield__input" type="password" name="cpassword">
+    <input class="mdl-textfield__input" type="password" name="cpassword" required>
     <label class="mdl-textfield__label" for="sample3"> Confirm Password...</label>
   </div>
 

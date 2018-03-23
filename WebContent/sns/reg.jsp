@@ -7,18 +7,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-<script>
-$(document).ready(function(){
-	alert()%>);
-})</script>
 
-<%@ page import=" java.sql.Connection,
-java.sql.DriverManager,
-java.sql.PreparedStatement,
-java.sql.ResultSet,
-java.sql.SQLException,
-java.sql.Statement"
- %>
+
+<%@ page import="com.db.*"%>
  <%
  String email=request.getParameter("email");
  String name=request.getParameter("fname")+" "+request.getParameter("sname");
@@ -33,28 +24,10 @@ java.sql.Statement"
 		<% out.println("<center><font color='red'>PASSWORD DIDN'T MATCH</font></center>");
 		}%>	 
  <%
- java.sql.Date date = new java.sql.Date(0000-00-00);
- 
- try{Class.forName("oracle.jdbc.driver.OracleDriver");
- Connection connection  = DriverManager.getConnection("jdbc:oracle:thin:@172.29.8.248:1521:xe","marine","7728");
- String insertTableSQL = "INSERT INTO USERS(USERID,EMAILID, PASSWORD, NAME, DOB, GENDER) VALUES"
-			+ "(seq.nextval,?,?,?,?,?)";
-	PreparedStatement preparedStatement = connection.prepareStatement(insertTableSQL);
-	preparedStatement.setString(1,email);
-	preparedStatement.setString(2,pass);
-	preparedStatement.setString(3,name);
-	preparedStatement.setDate(4,date.valueOf(dob));
-	preparedStatement.setString(5,gender);
-	//preparedStatement.setTimestamp(4, getCurrentTimeStamp());
-	// execute insert SQL stetement
-	preparedStatement .executeUpdate();
-	
- }
- catch (Exception e) {
+ dbConnection db = new dbConnection();
+ db.regUser(email, pass, name, dob, gender);
 
-	System.out.println(e.getMessage());
 
-}
 %>
 <jsp:include page='login.jsp'/>
 		<% out.println("<center><font color='red'>SUCCESSFULLY REGISTERED</font></center>");

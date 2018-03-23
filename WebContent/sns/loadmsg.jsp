@@ -4,13 +4,16 @@
 
 
 <%
+
 int userid=Integer.parseInt((session.getAttribute("userid")).toString());
-//9dbConnection db = (dbConnection)session.getAttribute("db");
-dbConnection db = new dbConnection();
+
+dbConnection db = (dbConnection)session.getAttribute("db");
 int msgid=Integer.parseInt(request.getParameter("msgid"));
 ArrayList<Message> msgs = db.getMsg(userid, msgid);
-for(Message msg:msgs)
+if(msgs!=null)
 {
+for(Message msg:msgs)
+{    db.updateMessage(msg.getMid());
 	if(msg.getSid()==userid)
 	{
 		out.print("<div id='sid' ><p class='send'>"+msg.getMsg()+"</p></div><br><br>");
@@ -19,5 +22,6 @@ for(Message msg:msgs)
 	else{
 		out.print("<div id='rid'><p class='rec'>"+msg.getMsg()+"</p></div><br><br>");
 	}
+}
 }
 %>

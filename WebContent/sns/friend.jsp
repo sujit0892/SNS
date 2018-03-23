@@ -20,7 +20,10 @@
 <script>
 $(document).ready(function(){
 	
-
+	$('#editprofile').click(function(){
+		window.location.replace("editprofile.jsp");
+	});
+	
 	
 	$('#waterfall-exp').keyup(function(e){
     if(e.keyCode == 13)
@@ -87,12 +90,11 @@ UserInfo userinfo= db.getInformation(userid);%>
                   <div class="android-drawer-separator"></div>   
           
           <nav class="mdl-navigation">
-            <a class="mdl-navigation__link" href=""> <i class="material-icons">home</i> Home</a>
-            <a class="mdl-navigation__link" href=""> <i class="material-icons">public</i> Notification</a>
-            <a class="mdl-navigation__link" href=""> <i class="material-icons">message</i> Message</a>
-            <a class="mdl-navigation__link" href=""> <i class="material-icons">account_circle</i> My Profile</a>
+           <a class="mdl-navigation__link" href="home.jsp"> <i class="material-icons">home</i> Home</a>
+            <a class="mdl-navigation__link" href="notification.jsp"> <i class="material-icons">public</i> Notification</a>
+            <a class="mdl-navigation__link" href="msg.jsp"> <i class="material-icons">message</i> Message</a>
+            <a class="mdl-navigation__link" href="myprofile.jsp"> <i class="material-icons">account_circle</i> My Profile</a>
             <div class="android-drawer-separator"></div>
-
            </nav>
 
         </div>
