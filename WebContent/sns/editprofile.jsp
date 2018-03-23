@@ -20,14 +20,7 @@
 <script>
 $(document).ready(function(){
 	
-	$('#editprofile').click(function(){
-		window.location.replace("editprofile.jsp");
-	});
-	$('#signout').click(function(){
-		window.location.replace("signout.jsp");
-		
-	});
-	
+
 	
 	$('#waterfall-exp').keyup(function(e){
     if(e.keyCode == 13)
@@ -109,9 +102,8 @@ UserInfo userinfo= db.getInformation(userid);%>
       
               <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
               for="demo-menu-lower-right">
-             <li id="editprofile" class="mdl-menu__item">Edit Profile</li>
-              <li id="signout"class="mdl-menu__item">Sign Out</li>
-        
+              <li class="mdl-menu__item">Edit Profile</li>
+              <li class="mdl-menu__item">Sign Out</li>
         
               </ul>
           </div>
@@ -128,11 +120,12 @@ UserInfo userinfo= db.getInformation(userid);%>
                   <div class="android-drawer-separator"></div>   
           
           <nav class="mdl-navigation">
-           <a class="mdl-navigation__link" href="home.jsp"> <i class="material-icons">home</i> Home</a>
-            <a class="mdl-navigation__link" href="notification.jsp"> <i class="material-icons">public</i> Notification</a>
-            <a class="mdl-navigation__link" href="msg.jsp"> <i class="material-icons">message</i> Message</a>
-            <a class="mdl-navigation__link" href="myprofile.jsp"> <i class="material-icons">account_circle</i> My Profile</a>
+            <a class="mdl-navigation__link" href=""> <i class="material-icons">home</i> Home</a>
+            <a class="mdl-navigation__link" href=""> <i class="material-icons">public</i> Notification</a>
+            <a class="mdl-navigation__link" href=""> <i class="material-icons">message</i> Message</a>
+            <a class="mdl-navigation__link" href=""> <i class="material-icons">account_circle</i> My Profile</a>
             <div class="android-drawer-separator"></div>
+
            </nav>
 
         </div>
@@ -157,7 +150,7 @@ UserInfo userinfo= db.getInformation(userid);%>
       <td><div style="cursor: pointer;" id="idob"><i  class="material-icons">border_color</i></div></td>
     </tr>
     <tr id="dob">
-    <form action="xyz.jsp" method="get">
+    <form action="editprofile.jsp" method="get">
     <td class="mdl-data-table__cell--non-numeric"><input type="date" name="dob"></td>
     <td><button style="background-color:#0288d1" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
   Edit
@@ -172,7 +165,7 @@ UserInfo userinfo= db.getInformation(userid);%>
     </tr>
     
     <tr id="gender">
-    <form action="xyz.jsp" method="get">
+    <form action="editprofile.jsp" method="get">
     <td class="mdl-data-table__cell--non-numeric"><input value="male" type="radio" name="g2" checked/>
       <label for="male"><span style="font-size: 20px ">Male</span></label><input value="female" type="radio" name="g2" checked/>
       <label for="male"><span style="font-size: 20px ">Female</span></label></td>
@@ -188,7 +181,7 @@ UserInfo userinfo= db.getInformation(userid);%>
      
     </tr>
     <tr id="interestedin">
-    <form action="xyz.jsp" method="get">
+    <form action="editprofile.jsp" method="get">
     <td class="mdl-data-table__cell--non-numeric"><input type="text" name="interestedin"></td>
     <td><button style="background-color:#0288d1" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
  Edit
@@ -203,7 +196,7 @@ UserInfo userinfo= db.getInformation(userid);%>
      
     </tr>
     <tr id="about">
-    <form action="xyz.jsp" method="get">
+    <form action="editprofile.jsp" method="get">
     <td class="mdl-data-table__cell--non-numeric"><input type="text" name="about"></td>
     <td><button style="background-color:#0288d1" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
  Edit
@@ -217,7 +210,7 @@ UserInfo userinfo= db.getInformation(userid);%>
       <td class="mdl-data-table__cell--non-numeric">Phone</td>
       <td><%= phone %></td>
       
-  <td><div style="cursor: pointer;"><i class="material-icons">delete</i></div></td>
+  
     	
     <% }%>
      <%ArrayList<String> study = new ArrayList(db.getStudy(userid));
@@ -227,17 +220,18 @@ UserInfo userinfo= db.getInformation(userid);%>
     
       <td class="mdl-data-table__cell--non-numeric">Studies at</td>
       <td><%= studies %></td>
-      <td><div style="cursor: pointer;"><i class="material-icons">delete</i></div></td>
+      
       
     </tr>
     	
     <% }%>
-   <tr>
+    
+   <tr><form action="editprofile.jsp" method="get">
       <td class="mdl-data-table__cell--non-numeric">Add phone</td>
       <td><input type="number" name="phone"></td>
       <td><button style="background-color:#0288d1" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
  Add
-</button></td>
+</button></td></form>
      
     </tr>
  <tr>
@@ -248,14 +242,7 @@ UserInfo userinfo= db.getInformation(userid);%>
 </button></td>
      
     </tr>
-     <tr>
-      <td class="mdl-data-table__cell--non-numeric">Add work</td>
-      <td><input type="text" name="work"></td>
-      <td><button style="background-color:#0288d1" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
- Add
-</button></td>
      
-    </tr>
 
 
       </tbody>
@@ -263,6 +250,7 @@ UserInfo userinfo= db.getInformation(userid);%>
           
 </div>
 </div>
+
                 
                
                 
@@ -277,6 +265,76 @@ UserInfo userinfo= db.getInformation(userid);%>
       </div>
          
       </div>
+<%@ page import=" java.sql.Connection,
+java.sql.DriverManager,
+java.sql.PreparedStatement,
+java.sql.ResultSet,
+java.sql.SQLException,
+java.sql.Statement"
+ %>
+<%
+db.createCon();
+
+java.sql.Date d = new java.sql.Date(0000-00-00);
+PreparedStatement preparedStatement=null;
+String dob = request.getParameter("dob");
+String gender = request.getParameter("g2");
+String interest = request.getParameter("interestedin");
+String about = request.getParameter("about");
+String phone = request.getParameter("phone");
+String stud = request.getParameter("study");
+
+
+if(dob!=null){
+	String updateSQL="Update users set dob=? where userid="+userid;
+	preparedStatement = db.con.prepareStatement(updateSQL);
+	preparedStatement.setDate(1,d.valueOf(dob));
+	 int a = preparedStatement.executeUpdate();
+} 
+
+if(gender!=null){
+	String updateSQL="Update users set gender=? where userid="+userid;
+	preparedStatement = db.con.prepareStatement(updateSQL);
+	preparedStatement.setString(1,gender);
+	int a = preparedStatement.executeUpdate();
+} 
+
+if(interest!=null){
+	String updateSQL="Update users set INTERESTEDIN=? where userid="+userid;
+	preparedStatement = db.con.prepareStatement(updateSQL);
+	preparedStatement.setString(1,interest);
+	int a = preparedStatement.executeUpdate();
+} 
+if(about!=null){
+	String updateSQL="Update users set about=? where userid="+userid;
+	preparedStatement = db.con.prepareStatement(updateSQL);
+	preparedStatement.setString(1,about);
+	int a = preparedStatement.executeUpdate();
+}
+if(phone!=null){
+	int phone1 = Integer.parseInt(phone);
+	String updateSQL="Insert into phoneno values(seqphone.nextval,?,?)";
+	preparedStatement = db.con.prepareStatement(updateSQL);
+	preparedStatement.setInt(1, userid);
+	preparedStatement.setInt(2, phone1);
+	
+	int a = preparedStatement.executeUpdate();
+}
+
+if(stud!=null){
+	String updateSQL="Insert into study values(seqstudy.nextval,?,?,null,null)";
+	
+	preparedStatement = db.con.prepareStatement(updateSQL);
+	preparedStatement.setInt(1, userid);
+	preparedStatement.setString(2,stud);
+	preparedStatement.setString(1,stud);
+	int a = preparedStatement.executeUpdate();
+}
+
+
+db.closeCon();
+%>
+
 
 
 </body>

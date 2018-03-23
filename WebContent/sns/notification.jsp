@@ -14,14 +14,16 @@
 <script>
 $(document).ready(function(){
 	$('#editprofile').click(function(){
-		window.location.replace("editprofile.jsp");
+		window.location.replace("upload2.jsp");
 	});
 	$('#signout').click(function(){
 		window.location.replace("signout.jsp");
 		
 	});
 	
-
+	setInterval(function(){
+		$('#navbar').load('nav.jsp');
+		}, 2000);
 	
 	$('#waterfall-exp').keyup(function(e){
     if(e.keyCode == 13)
@@ -76,6 +78,12 @@ margin-left: 50px"
 
 </head>
 <%
+if(session.getAttribute("userid")==null)
+{%>
+	<jsp:include page='login.jsp'/>
+	<% out.println("<center><font color='red'>please login</font></center>");
+	%>	
+<%}else{
 int userid=Integer.parseInt((session.getAttribute("userid")).toString());
 dbConnection db = new dbConnection();
 UserInfo userinfo= db.getInformation(userid);%>
@@ -126,7 +134,7 @@ UserInfo userinfo= db.getInformation(userid);%>
                   </span>
                   <div class="android-drawer-separator"></div>   
           
-          <nav class="mdl-navigation">
+          <nav id='navbar' class="mdl-navigation">
 <a class="mdl-navigation__link" href="home.jsp"> <i class="material-icons">home</i> Home</a>
             <a class="mdl-navigation__link" href="notification.jsp"> <i class="material-icons">public</i> Notification</a>
             <a class="mdl-navigation__link" href="msg.jsp"> <i class="material-icons">message</i> Message</a>
@@ -192,3 +200,4 @@ for(notify notify:notifys)
 
 </body>
 </html>
+<%} %>

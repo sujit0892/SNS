@@ -28,6 +28,12 @@
 }
 </style>
 <%
+if(session.getAttribute("userid")==null)
+{%>
+	<jsp:include page='login.jsp'/>
+	<% out.println("<center><font color='red'>please login</font></center>");
+	%>	
+<%}else{
 
 int id=Integer.parseInt((session.getAttribute("userid")).toString());
 int userid=Integer.parseInt(request.getParameter("user"));
@@ -36,14 +42,19 @@ if(id==userid)
 	response.sendRedirect(redirectURL);
 	}
 dbConnection db = new dbConnection();
-UserInfo userinfo= db.getInformation(userid);
+UserInfo user= db.getInformation(id);
 int status= db.checkFriend(id, userid);%> 
 
 <script>
 $(document).ready(function(){
 	$('#editprofile').click(function(){
-		window.location.replace("editprofile.jsp");
+		window.location.replace("upload2.jsp");
 	});
+	
+	setInterval(function(){
+		$('#navbar').load('nav.jsp');
+		}, 2000);
+	
 	$('#signout').click(function(){
 		window.location.replace("signout.jsp");
 		
@@ -91,7 +102,7 @@ $(document).ready(function(){
 
 <body>
 <style>
-<%out.print(".android-drawer-separator {"+"height: 1px;"+"background-color: #dcdcdc;"+"margin: 8px 0;"+"}"+".demo-avatar {"+" background-image: url('"+userinfo.getPicurl()+"');"+"background-position: center;"+"background-size: cover;"+"width: 100px;"+"height: 100px;"+"border-radius: 50px;"+"margin-left: 50px"+"}");%>
+<%out.print(".android-drawer-separator {"+"height: 1px;"+"background-color: #dcdcdc;"+"margin: 8px 0;"+"}"+".demo-avatar {"+" background-image: url('"+user.getPicurl()+"');"+"background-position: center;"+"background-size: cover;"+"width: 100px;"+"height: 100px;"+"border-radius: 50px;"+"margin-left: 50px"+"}");%>
 </style>
     <div class="demo-layout-waterfall mdl-layout mdl-js-layout">
         <header class="mdl-layout__header mdl-layout__header--waterfall">
@@ -131,12 +142,12 @@ $(document).ready(function(){
             <div  class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer">
                <div class="mdl-layout__drawer" >
                   <img  class="demo-avatar" style="margin-top:5px" > 
-                                <span class="mdl-layout-title"><%out.print(userinfo.getName());%>
+                                <span class="mdl-layout-title"><%out.print(user.getName());%>
 
                   </span>
                   <div class="android-drawer-separator"></div>   
           
-          <nav class="mdl-navigation">
+          <nav id='navbar' class="mdl-navigation">
            <a class="mdl-navigation__link" href="home.jsp"> <i class="material-icons">home</i> Home</a>
             <a class="mdl-navigation__link" href="notification.jsp"> <i class="material-icons">public</i> Notification</a>
             <a class="mdl-navigation__link" href="msg.jsp"> <i class="material-icons">message</i> Message</a>
@@ -147,7 +158,7 @@ $(document).ready(function(){
 
         </div>
         
-        
+        <%UserInfo userinfo = db.getInformation(userid); %>
         <main id="a" class="mdl-layout__content" >
                         <style>
         .demo-layout-waterfall .mdl-layout__header-row .mdl-navigation__link:last-of-type  {
@@ -200,7 +211,7 @@ if(status==1){%><button id="unfriend" style="background-color:#0288d1" class="md
 %>
 
 </div></div>
-<div class = "mdl-tabs mdl-js-tabs">
+<div  class = "mdl-tabs mdl-js-tabs">
                <div class = "mdl-tabs__tab-bar">
                   <a href = "#tab1-panel" class = "mdl-tabs__tab is-active">About</a>
                   <a href = "#tab2-panel" class = "mdl-tabs__tab">Timeline</a>
@@ -290,7 +301,7 @@ if(status==1){%><button id="unfriend" style="background-color:#0288d1" class="md
 	}
 	
 	out.print(""+
-	"$('#likebutton"+post.getPid()+"').click(function() { alert();$('#likeicon"+post.getPid()+"').toggleClass('black blue');$.post('like.jsp',{"+
+	"$('#likebutton"+post.getPid()+"').click(function() { $('#likeicon"+post.getPid()+"').toggleClass('black blue');$.post('like.jsp',{"+
 	 "   	     post:"+post.getPid()+
 	  "  	    },"+
 	   " 	    function(data, status){"+
@@ -366,11 +377,11 @@ if(status==1){%><button id="unfriend" style="background-color:#0288d1" class="md
 
 ArrayList<Integer> friends =new ArrayList(db.getfrnds(userid));
 for(int friend:friends)
-{   UserInfo user = db.getInformation(friend);
-	out.print("<style>#pic"+user.getUserid()+"{background-image: url('"+user.getPicurl()+"');}</style>");
+{   UserInfo userfrnd = db.getInformation(friend);
+	out.print("<style>#pic"+user.getUserid()+"{background-image: url('"+userfrnd.getPicurl()+"');}</style>");
 	out.print("<div class='button_class'>"+
-			"<a class='link_class' style='text-decoration:none'; href='profile.jsp?user="+user.getUserid()+"' ><img id='pic"+user.getUserid()+"'class='demo'>&nbsp&nbsp"+
-            user.getName()+"</a><div>");
+			"<a class='link_class' style='text-decoration:none'; href='profile.jsp?user="+userfrnd.getUserid()+"' ><img id='pic"+userfrnd.getUserid()+"'class='demo'>&nbsp&nbsp"+
+            userfrnd.getName()+"</a><div>");
 	
 }
 
@@ -405,3 +416,4 @@ for(int friend:friends)
 
 </body>
 </html>
+<%}%>

@@ -5,11 +5,21 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 
-<% int userid = (int)session.getAttribute("userid"); 
+<%
+
+if(session.getAttribute("userid")==null)
+{%>
+	<jsp:include page='login.jsp'/>
+	<% out.println("<center><font color='red'>please login</font></center>");
+	%>	
+<%}else{
+
+int userid = (int)session.getAttribute("userid"); 
 
 
 dbConnection db = (dbConnection)session.getAttribute("db");
 //dbConnection db = new dbConnection();
+db.OnlineStatus(userid);
 
 UserInfo userinfo= db.getInformation(userid); %>
 <html>
@@ -55,7 +65,7 @@ $(document).ready(function(){
 	$("#viewpost").load("viewpost.jsp");
 	
 	$('#editprofile').click(function(){
-		window.location.replace("editprofile.jsp");
+		window.location.replace("upload2.jsp");
 	});
 	$('#waterfall-exp').keyup(function(e){
     if(e.keyCode == 13)
@@ -63,6 +73,11 @@ $(document).ready(function(){
     
     	window.location.replace("search.jsp?search="+$('#waterfall-exp').val());
     }});
+	
+
+		setInterval(function(){
+			$('#navbar').load('nav.jsp');
+			}, 2000);
 
 });
 
@@ -73,7 +88,7 @@ function load()
 { var elem = document.getElementById("description").value;    
 var filetoUpload=document.getElementById("ID").files[0];
 elem = elem.replace("\n"," ");
-alert(elem);
+
 var downloadURL=null;
 
 
@@ -99,7 +114,7 @@ var storageRef = firebase.storage().ref(""+Math.random());
     },
     function complete(){
        downloadURL = task.snapshot.downloadURL;
-        alert(downloadURL);
+        
         window.location.replace("post.jsp?desc="+elem+"&url="+downloadURL);
     }
 ); }
@@ -144,7 +159,7 @@ else
       
               <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
               for="demo-menu-lower-right">
-              <li id="editprofile" class="mdl-menu__item">Edit Profile</li>
+              <li id="editprofile" class="mdl-menu__item">change Profile pic</li>
               <li id="signout"class="mdl-menu__item">Sign Out</li>
         
               </ul>
@@ -161,7 +176,7 @@ else
                   </span>
                   <div class="android-drawer-separator"></div>   
           
-          <nav class="mdl-navigation">
+          <nav id='navbar' class="mdl-navigation">
             <a class="mdl-navigation__link" href="home.jsp"> <i class="material-icons">home</i> Home</a>
             <a class="mdl-navigation__link" href="notification.jsp"> <i class="material-icons">public</i> Notification</a>
             <a class="mdl-navigation__link" href="msg.jsp"> <i class="material-icons">message</i> Message</a>
@@ -194,7 +209,7 @@ else
   <input class="mdl-textfield__input" placeholder="No file chosen" type="text" id="TEXT_ID" readonly />
   <div class="mdl-button mdl-button--icon mdl-button--file">
     <i class="material-icons">add_a_photo</i>
-    <input type="file" name="NAME" id="ID" onchange="document.getElementById('TEXT_ID').value=this.files[0].name;document.getElementById('TEXT_ID').style.display='block';" />
+    <input type="file" name="NAME"   accept="image/*" id="ID" onchange="document.getElementById('TEXT_ID').value=this.files[0].name;document.getElementById('TEXT_ID').style.display='block';"/>
   </div>
 </div>
 </div>
@@ -223,3 +238,4 @@ else
 
 </body>
 </html>
+<%} %>

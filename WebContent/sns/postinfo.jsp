@@ -16,7 +16,12 @@
 
 <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
 <script type="text/javascript" src="home.js"></script>
-<%
+<%if(session.getAttribute("userid")==null)
+{%>
+<jsp:include page='login.jsp'/>
+<% out.println("<center><font color='red'>please login</font></center>");
+%>	
+<%}else{
 int userid=Integer.parseInt((session.getAttribute("userid")).toString());
 int pid = Integer.parseInt(request.getParameter("post"));
 dbConnection db = new dbConnection();
@@ -38,7 +43,7 @@ $(document).ready(function(){
 		
 	});
 	$('#editprofile').click(function(){
-		window.location.replace("editprofile.jsp");
+		window.location.replace("upload2.jsp");
 	});
 	$('#waterfall-exp').keyup(function(e){
     if(e.keyCode == 13)
@@ -66,7 +71,7 @@ $(document).ready(function(){
 	});
 	
 $('#doComment').click(function() {
-	    alert();
+	   
 	    var c=$('#commentbox').val();
 	    $.post("comment.jsp",
 	    	    {
@@ -74,13 +79,24 @@ $('#doComment').click(function() {
 	                comment: c
 	    	    },
 	    	    function(data, status){
-	    	        alert();
+	    	       
 	    	    });
 	   
+	    $('#commentbox').val("");
 	});
 	
 	
+setInterval(function(){
+	$('#navbar').load('nav.jsp');
+	}, 2000);
 	
+setInterval(function(){
+	<%out.println("$('#loadComment').load('CommentLoad.jsp?post="+pid+"');");%>
+	}, 2000);
+setInterval(function(){
+	<%out.println("$('#likes').load('LikeLoad.jsp?post="+pid+"');");%>
+	}, 2000);	
+		
 	
 });
 </script>
@@ -135,7 +151,7 @@ $('#doComment').click(function() {
                   </span>
                   <div class="android-drawer-separator"></div>   
           
-          <nav class="mdl-navigation">
+          <nav id='navbar' class="mdl-navigation">
             <a class="mdl-navigation__link" href="home.jsp"> <i class="material-icons">home</i> Home</a>
             <a class="mdl-navigation__link" href="notification.jsp"> <i class="material-icons">public</i> Notification</a>
             <a class="mdl-navigation__link" href="msg.jsp"> <i class="material-icons">message</i> Message</a>
@@ -222,32 +238,16 @@ $('#doComment').click(function() {
 %>
 
 <div><div  id='likes' style="margin-left:25%;" class=' demo-card-wide mdl-card mdl-shadow--2dp'>
-   <%
-       ArrayList<Like> likes=new ArrayList(db.getLikes(pid));
-   for(Like like:likes)
-   {
-	   UserInfo user = db.getInformation(like.getUserid());
-		out.print("<style>#pic"+user.getUserid()+"{background-image: url('"+user.getPicurl()+"');}</style>");
-		out.print("<div class='button_class'>"+
-				"<a style='text-decoration:none'; href='profile.jsp?user="+user.getUserid()+"' class='link_class' ><img id='pic"+user.getUserid()+"'class='demo'>&nbsp&nbsp"+
-	            user.getName()+"</a></div>");   
-   }
-   %>
+   
   
    </div>
 <div id='comments' style="padding:5px;margin-left:25%;" class=' demo-card-wide mdl-card mdl-shadow--2dp'>
+<div id='loadComment'>
    <%
        ArrayList<Comment> comments=new ArrayList(db.getComment(pid));
-   for(Comment comment:comments)
-   {
-	   UserInfo user = db.getInformation(comment.getUserid());
-		out.print("<style>#pic"+user.getUserid()+"{background-image: url('"+user.getPicurl()+"');}</style>");
-		out.print("<div  class='button_class'>"+
-				"<img id='pic"+user.getUserid()+"'class='demo'><div style='color:#9E9E9E'>"+user.getName()+"</div>&nbsp&nbsp"+
-	            comment.getComments()+"</div><div class='android-drawer-separator'></div>");   
-   }
+ 
    out.print("<style>#pic"+userinfo.getUserid()+"{background-image: url('"+userinfo.getPicurl()+"');}</style>");
-	out.print("<div style='padding:5px' class='button_class'>"+
+	out.print("</div><div style='padding:5px' class='button_class'>"+
 			"<img id='pic"+userinfo.getUserid()+"'class='demo'>&nbsp&nbsp"+
            "<input style='width:60%' type='text' id='commentbox'>&nbsp&nbsp<button id='doComment' style='background-color:#0288d1' class='mdl-button mdl-js-button mdl-button--raised mdl-button--colored'>"+
            "Comment"+
@@ -274,3 +274,4 @@ $('#doComment').click(function() {
 
 </body>
 </html>
+<%}%>

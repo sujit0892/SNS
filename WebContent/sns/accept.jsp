@@ -10,7 +10,11 @@ dbConnection db=(dbConnection)session.getAttribute("db");
 db.accept(userid, friend, action);
 if(action==2)
 {
-	db.insetNotify(userid, 0, friend, "sent friend Request");
+	db.insetNotify(userid, 0, friend, "sent you friend Request");
+}
+if(action==1)
+{
+	db.insetNotify(userid, 0, friend, "accepted your friend Request");
 }
 response.sendRedirect("profile.jsp?user="+friend);
 

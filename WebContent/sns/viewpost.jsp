@@ -30,7 +30,7 @@
 	}
 	
 	out.print(""+
-	"$('#likebutton"+post.getPid()+"').click(function() { alert();$('#likeicon"+post.getPid()+"').toggleClass('black blue');$.post('like.jsp',{"+
+	"$('#likebutton"+post.getPid()+"').click(function() { $('#likeicon"+post.getPid()+"').toggleClass('black blue');$.post('like.jsp',{"+
 	 "   	     post:"+post.getPid()+
 	  "  	    },"+
 	   " 	    function(data, status){"+

@@ -1,5 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+ 
+ 
+<!--
+
+//-->
+ 
     
     <%
     if(session.getAttribute("userid")!= null){
@@ -21,6 +27,9 @@
 
 <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
 <script type="text/javascript" src="home.js"></script>
+
+
+
 </head>
 <body style="background-color:dodgerblue">
      <!-- log in dialog-->
@@ -29,11 +38,14 @@
          <p><b>SNS</b></p></div> -->
 <script>
 $(document).ready(function()
-		{$('#hide').click(function()
+		{
+	
+	$('#hide').click(function()
 				{
 		      $('#loginDialog').show();
 		      $('signupDialog').hide();
-				})
+				});
+	
 	
 		});
 </script>
@@ -47,7 +59,7 @@ $(document).ready(function()
     <p id="error" style="color:red"></p>
     <div class="mdl-dialog__content">
      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-    <input class="mdl-textfield__input" type="text" name="email" required>
+    <input class="mdl-textfield__input" type="email" name="email" required>
     <label class="mdl-textfield__label" for="sample3">Email...</label>
   </div>
   <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
@@ -75,7 +87,7 @@ $(document).ready(function()
 
 <!--SIGN UP DIALOG FINAL-->
 <form  method="get" action="reg.jsp">
-        <dialog id="signupDialog" style="width:55% ;height: 80%" class="mdl-dialog">
+        <dialog id="signupDialog" style="width:55% ;height: 90%" class="mdl-dialog">
           <h4 class="mdl-dialog__title" align='left'><span style="color: blue">S</span><span style="color:orange">N</span><span style="color: blue">S</span></h4>
     <h4 class="mdl-dialog__title"><span style="font-size: 20px">Sign Up</span></h4>
     <p id="error" style="color:red"></p>
@@ -117,7 +129,6 @@ $(document).ready(function()
     <label class="mdl-textfield__label" for="sample3"> Confirm Password...</label>
   </div>
 
-
   
 
       </div>
@@ -142,7 +153,7 @@ $(document).ready(function()
 
 
     <!--<button align="left" id="create" type="button" class="mdl-button close">Create Account</button>-->
-    </div>
+    
   </dialog>
   </form>
   

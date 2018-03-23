@@ -24,13 +24,22 @@
 		<% out.println("<center><font color='red'>PASSWORD DIDN'T MATCH</font></center>");
 		}%>	 
  <%
+ 
+ 
  dbConnection db = new dbConnection();
+ if(!db.checkEmail(email))
+ {
  db.regUser(email, pass, name, dob, gender);
+session.setAttribute("emailid", email);
+response.sendRedirect("upload.jsp");
+ }
+ else
+ {%>
+	<jsp:include page='login.jsp'/>
+		<% out.println("<center><font color='red'>Already signup</font></center>");
+		}%>	 
+ 
 
-
-%>
-<jsp:include page='login.jsp'/>
-		<% out.println("<center><font color='red'>SUCCESSFULLY REGISTERED</font></center>");
-		%>	 
+ 
 </body>
 </html>

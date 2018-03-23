@@ -32,7 +32,7 @@
 $(document).ready(function(){
 	
 	$('#editprofile').click(function(){
-		window.location.replace("editprofile.jsp");
+		window.location.replace("upload2.jsp");
 	});
 	
 	$('#signout').click(function(){
@@ -46,6 +46,10 @@ $(document).ready(function(){
     
     	window.location.replace("search.jsp?search="+$('#waterfall-exp').val());
     }});
+	
+	setInterval(function(){
+		$('#navbar').load('nav.jsp');
+		}, 2000);
 
 });
 
@@ -53,6 +57,12 @@ $(document).ready(function(){
 </script>
 </head>
 <%
+if(session.getAttribute("userid")==null)
+{%>
+	<jsp:include page='login.jsp'/>
+	<% out.println("<center><font color='red'>please login</font></center>");
+	%>	
+<%}else{
 int userid=(int)session.getAttribute("userid");
 dbConnection db = new dbConnection();
 UserInfo userinfo= db.getInformation(userid);%>
@@ -104,7 +114,7 @@ UserInfo userinfo= db.getInformation(userid);%>
                   </span>
                   <div class="android-drawer-separator"></div>   
           
-          <nav class="mdl-navigation">
+          <nav id='navbar' class="mdl-navigation">
             <a class="mdl-navigation__link" href="home.jsp"> <i class="material-icons">home</i> Home</a>
             <a class="mdl-navigation__link" href="notification.jsp"> <i class="material-icons">public</i> Notification</a>
             <a class="mdl-navigation__link" href="msg.jsp"> <i class="material-icons">message</i> Message</a>
@@ -236,7 +246,7 @@ UserInfo userinfo= db.getInformation(userid);%>
 	}
 	
 	out.print(""+
-	"$('#likebutton"+post.getPid()+"').click(function() { alert();$('#likeicon"+post.getPid()+"').toggleClass('black blue');$.post('like.jsp',{"+
+	"$('#likebutton"+post.getPid()+"').click(function() { $('#likeicon"+post.getPid()+"').toggleClass('black blue');$.post('like.jsp',{"+
 	 "   	     post:"+post.getPid()+
 	  "  	    },"+
 	   " 	    function(data, status){"+
@@ -377,3 +387,4 @@ for(int friend:friends)
 
 </body>
 </html>
+<%} %>

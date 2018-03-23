@@ -1,5 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+    <style>
+    .dot {
+    height: 10px;
+    width: 10px;
+    background-color: red;
+    border-radius: 50%;
+    display: inline-block;
+}</style>
     <%@ page import="com.db.*,java.util.*" %>
     <div width:100% style="background-color:#3D5AFE;padding:22px;color:#fff;font-size:20px">Recent Message</div>
 <% int userid=Integer.parseInt((session.getAttribute("userid")).toString());
@@ -10,7 +18,14 @@ TreeMap<Integer,Integer> map = new TreeMap(db.getRecentMsg(userid));
                 	
                 	
                 	out.print("<style>#pic"+user.getUserid()+"{background-image: url('"+user.getPicurl()+"');}</style>");
-                	out.print("<div id='div"+user.getUserid()+"' class='anchor'><img id='pic"+user.getUserid()+"'class='demo'>&nbsp&nbsp"+user.getName()+"</div>");
+                	if(db.checkRecmsg(key,userid))
+                	{
+                	out.print("<div id='div"+user.getUserid()+"' class='anchor'><img id='pic"+user.getUserid()+"'class='demo'>&nbsp&nbsp"+user.getName()+"<span class='dot'></div>");
+                	}
+                	else
+                	{
+                		out.print("<div id='div"+user.getUserid()+"' class='anchor'><img id='pic"+user.getUserid()+"'class='demo'>&nbsp&nbsp"+user.getName()+"</div>");
+                	}
                 	out.print("<script>$(document).ready(function(){"+
                     	"$('#div"+user.getUserid()+"').click(function(){"+
                     	"	$('#load').load('messageContent.jsp?msgid="+user.getUserid()+"');"+

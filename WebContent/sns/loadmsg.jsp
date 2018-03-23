@@ -13,7 +13,8 @@ ArrayList<Message> msgs = db.getMsg(userid, msgid);
 if(msgs!=null)
 {
 for(Message msg:msgs)
-{    db.updateMessage(msg.getMid());
+{   if(msg.getStatus()==0&&msg.getRid()==userid)
+	db.updateMessage(msg.getMid());
 	if(msg.getSid()==userid)
 	{
 		out.print("<div id='sid' ><p class='send'>"+msg.getMsg()+"</p></div><br><br>");

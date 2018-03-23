@@ -48,8 +48,12 @@ $(document).ready(function(){
 		}, 2000);
 $('#sendbtn').click(function()
 		{
+	if($('#sendmag').val()!='')
+			{ 
+	
 	$.post('sendMessage.jsp',{rid:<%=msgid%>,msg:$('#sendmag').val()},function(data,status){});
-	alert();
+	$('#sendmag').val("");
+			}
 		});
 		
 	

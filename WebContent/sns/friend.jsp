@@ -31,6 +31,10 @@ $(document).ready(function(){
     
     	window.location.replace("search.jsp?search="+$('#waterfall-exp').val());
     }});
+	
+	setInterval(function(){
+		$('#navbar').load('nav.jsp');
+		}, 2000);
 
 });
 
@@ -89,7 +93,7 @@ UserInfo userinfo= db.getInformation(userid);%>
                   </span>
                   <div class="android-drawer-separator"></div>   
           
-          <nav class="mdl-navigation">
+          <nav id='navbar' class="mdl-navigation">
            <a class="mdl-navigation__link" href="home.jsp"> <i class="material-icons">home</i> Home</a>
             <a class="mdl-navigation__link" href="notification.jsp"> <i class="material-icons">public</i> Notification</a>
             <a class="mdl-navigation__link" href="msg.jsp"> <i class="material-icons">message</i> Message</a>

@@ -19,6 +19,7 @@ public class dbConnection {
 	
 	  public  Connection con;
 	
+	  
 	 ResultSet rs ;
 	 public dbConnection()
 	 { 
@@ -237,14 +238,14 @@ public class dbConnection {
 	{ createCon();
 		ArrayList<Integer> friend = new ArrayList();
 		try {
-			PreparedStatement ps = con.prepareStatement("Select friend,status from friendlist where userid=?");
+			PreparedStatement ps = con.prepareStatement("Select friend,status from friendlist where userid=? and status=1");
 			ps.setInt(1,userid);
 			rs = ps.executeQuery();
 			while(rs.next())
 			{   if(rs.getInt(2)==1)
 				friend.add(rs.getInt(1));
 			}
-			ps = con.prepareStatement("Select userid,status from friendlist where friend=?");
+			ps = con.prepareStatement("Select userid,status from friendlist where friend=? and status=1");
 			ps.setInt(1,userid);
 			rs = ps.executeQuery();
 			while(rs.next())
@@ -339,6 +340,7 @@ public class dbConnection {
 	
 	public ArrayList<Integer> search(String search)
 	{ createCon();
+	search = search.toLowerCase();
 		ArrayList<Integer> user = new ArrayList();
 		try {
 			PreparedStatement ps = con.prepareStatement("Select userid from users where name like ?");
@@ -644,7 +646,7 @@ public class dbConnection {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		 selectSQL = "SELECT status FROM friendlist WHERE (userid=? and friend=?)";
+		 selectSQL = "SELECT status FROM friendlist WHERE (userid=? and friend=?)and status=0";
 		
 	
 		try {
@@ -773,6 +775,144 @@ public class dbConnection {
 		}
 		closeCon();
 	}
+	
+	public boolean checkMsg(int userid)
+	{   boolean status=false;
+		createCon();
+		try {
+			PreparedStatement ps=con.prepareStatement("select mid from message where status=0 and rid=?");
+			ps.setInt(1, userid);
+			
+			rs=ps.executeQuery();
+			while(rs.next())
+			{
+				status=true;
+			}
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		closeCon();
+		return status;
+	}
+	
+	public boolean checkNot(int userid)
+	{   boolean status=false;
+		createCon();
+		try {
+			PreparedStatement ps=con.prepareStatement("select nid from notification where status=0 and userpost=?");
+			ps.setInt(1, userid);
+			
+			rs=ps.executeQuery();
+			while(rs.next())
+			{
+				status=true;
+			}
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		closeCon();
+		return status;
+	}
+	
+	public boolean checkRecmsg(int mid,int userid)
+	{ boolean status=false;
+	createCon();
+	try {
+		PreparedStatement ps=con.prepareStatement("select mid from message where mid=? and status=0 and rid=?");
+		ps.setInt(1, mid);
+		ps.setInt(2, userid);
+		
+		rs=ps.executeQuery();
+		while(rs.next())
+		{
+			status=true;
+		}
+		
+	} catch (Exception e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	closeCon();
+	return status;
+		
+	}
+	
+	public void OnlineStatus(int userid)
+	{ PreparedStatement ps;
+	createCon();
+		try {
+			ps=con.prepareStatement("update users set status=1 where userid=?");
+		
+		 ps.setInt(1,userid);
+		 
+		 ps.executeUpdate();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	public void offlineStatus(int userid)
+	{ PreparedStatement ps;
+	createCon();
+		try {
+			ps=con.prepareStatement("update users set status=0 where userid=?");
+		
+		 ps.setInt(1,userid);
+		 
+		 ps.executeUpdate();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
+	public void uploadPicture(String userid,String url)
+	{
+		PreparedStatement ps;
+		createCon();
+			try {
+				ps=con.prepareStatement("update users set picurl=? where emailid=?");
+			ps.setString(1, url);
+			 ps.setString(2,userid);
+			 
+			 ps.executeUpdate();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		
+		
+	}
+	
+	public boolean checkEmail(String email)
+	{
+		 boolean status=false;
+			createCon();
+			try {
+				PreparedStatement ps=con.prepareStatement("select userid from users where emailid=?");
+				ps.setString(1, email);
+				
+				rs=ps.executeQuery();
+				while(rs.next())
+				{
+					status=true;
+				}
+				
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			closeCon();
+			return status;
+		}
+		
+	
 		
 	
 }
