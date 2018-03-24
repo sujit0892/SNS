@@ -188,7 +188,7 @@ UserInfo userinfo= db.getInformation(userid);%>
     </tr>
     <tr>
       <td class="mdl-data-table__cell--non-numeric">Interested in</td>
-      <td><%= userinfo.getInterestedIn() %></td>
+      <td></td>
      
     </tr>
     <tr>
@@ -202,7 +202,7 @@ UserInfo userinfo= db.getInformation(userid);%>
      <tr>
     
       <td class="mdl-data-table__cell--non-numeric">Phone</td>
-      <td><%= phone %></td>
+      <td></td>
       
     </tr>
     	
@@ -213,7 +213,7 @@ UserInfo userinfo= db.getInformation(userid);%>
      <tr>
     
       <td class="mdl-data-table__cell--non-numeric">Studies at</td>
-      <td><%= studies %></td>
+      <td></td>
       
     </tr>
     	

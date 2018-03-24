@@ -63,7 +63,7 @@ $(document).ready(function()
     <label class="mdl-textfield__label" for="sample3">Email...</label>
   </div>
   <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-    <input class="mdl-textfield__input" type="password" name="password" required>
+    <input class="mdl-textfield__input" type="password" name="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}" required>
     <label class="mdl-textfield__label" for="sample3">Password...</label>
   </div>
     </div>
@@ -121,11 +121,11 @@ $(document).ready(function()
   </div>
   
   <div style="margin: 10px;" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-    <input class="mdl-textfield__input" type="password" name="password" required>
+    <input class="mdl-textfield__input" type="password" name="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}" required>
     <label class="mdl-textfield__label" for="sample3">Password...</label>
   </div>
    <div style="margin: 10px;" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-    <input class="mdl-textfield__input" type="password" name="cpassword" required>
+    <input class="mdl-textfield__input" type="password" name="cpassword" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}" required>
     <label class="mdl-textfield__label" for="sample3"> Confirm Password...</label>
   </div>
 
